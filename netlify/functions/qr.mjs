@@ -1,12 +1,11 @@
 
 import QRCode from "qrcode-svg"
-import svg2jpg from 'convert-svg-to-jpeg';
+const { convert } = require('convert-svg-to-jpeg');
+const chromium = require('chrome-aws-lambda');
 
 
 
 const handler = async (req) => {
-  
-  const { convert } = svg2jpg;
 
 
   let data;
