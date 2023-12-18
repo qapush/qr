@@ -1,12 +1,12 @@
 
 import QRCode from "qrcode-svg"
-const { convert } = require('convert-svg-to-jpeg');
+import svg2jpg from 'convert-svg-to-jpeg';
 
 
 
 const handler = async (req) => {
   
-
+  const { convert } = svg2jpg;
 
 
   let data;
