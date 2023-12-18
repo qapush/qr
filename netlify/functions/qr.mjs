@@ -1,7 +1,7 @@
 
 import QRCode from "qrcode-svg"
-const { convert } = require('convert-svg-to-jpeg');
-const chromium = require('chrome-aws-lambda');
+import pkg from 'convert-svg-to-jpeg';
+import chromium from 'chrome-aws-lambda';
 
 
 
@@ -9,6 +9,7 @@ const handler = async (req) => {
 
 
   let data;
+  const { convert } = pkg;
 
   try {
     data = await req.json()
@@ -35,8 +36,13 @@ END:VCARD`;
     const buff = Buffer.from(qrSvg);
     const qrCodeUrl = `data:image/svg+xml;base64,${buff.toString('base64')}`;
 
-  
-    const jpeg = await convert(qrSvg);
+    const jpeg = await convert(qrSvg, {puppeteer: {
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    }});
     console.log(jpeg);
     
 
