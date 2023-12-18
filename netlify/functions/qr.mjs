@@ -1,9 +1,11 @@
-
+// import svgToImg from "svg-to-img";
+// import QRCode from "qrcode-svg";
+const QRCode = require("qrcode-svg");
+const svgToImg = require("svg-to-img");
 
 const handler = async (req) => {
 
-  var QRCode = require("qrcode-svg");
-  const svgToImg = require("svg-to-img");
+
   
   let data;
 

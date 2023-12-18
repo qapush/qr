@@ -1,0 +1,16 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "qapush",
+  "license": "MIT",
+  "dependencies": {
+    "qrcode-svg": "^1.1.0",
+    "svg-to-img": "^2.0.9"
+  }
+}
