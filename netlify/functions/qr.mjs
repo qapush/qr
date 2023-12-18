@@ -1,14 +1,13 @@
-// import svgToImg from "svg-to-img";
-// import QRCode from "qrcode-svg";
-// const QRCode = require("qrcode-svg");
+
 import QRCode from "qrcode-svg"
-// import svgToImg from "svg-to-img"
-const svgToImg = require("svg-to-img");
+const { convert } = require('convert-svg-to-jpeg');
+
 
 
 const handler = async (req) => {
+  
 
-  console.log();
+
 
   let data;
 
@@ -38,11 +37,12 @@ END:VCARD`;
     const qrCodeUrl = `data:image/svg+xml;base64,${buff.toString('base64')}`;
 
   
-    const jpegBase64 = await svgToImg.from(qrSvg).toJpeg({encoding: "base64"})
+    const jpeg = await convert(qrSvg);
+    console.log(jpeg);
     
 
 
-    return new Response(JSON.stringify({ qrCodeUrl,jpegBase64, name }), {
+    return new Response(JSON.stringify({ qrCodeUrl, name }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
