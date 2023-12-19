@@ -39,9 +39,8 @@ END:VCARD`;
     const jpeg = await convert(qrSvg, {puppeteer: {
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath,
+      executablePath: await chromium.executablePath("/opt/chromium"),
       headless: chromium.headless,
-      ignoreHTTPSErrors: true,
     }});
     console.log(jpeg);
     
