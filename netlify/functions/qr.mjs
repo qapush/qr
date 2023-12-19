@@ -1,7 +1,7 @@
 
 import QRCode from "qrcode-svg"
 import pkg from 'convert-svg-to-jpeg';
-import chromium from 'chrome-aws-lambda';
+import chromium from '@sparticuz/chromium-min';
 
 
 
