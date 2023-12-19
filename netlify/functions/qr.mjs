@@ -1,17 +1,19 @@
+// https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md
 
-import QRCode from "qrcode-svg"
+import QRCode from "qrcode-svg";
 import pkg from 'convert-svg-to-jpeg';
-import chromium from '@sparticuz/chromium-min';
-
+import chromium from "@sparticuz/chromium";
 
 
 const handler = async (req) => {
 
 
 
-  const localBin = 'C:\Program Files\Google\Chrome\Application\chrome.exe';
   let data;
+  const localChromePath = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
   const { convert } = pkg;
+
+  console.log(process.env);
 
   try {
     data = await req.json()
@@ -38,15 +40,16 @@ END:VCARD`;
     const buff = Buffer.from(qrSvg);
     const qrCodeUrl = `data:image/svg+xml;base64,${buff.toString('base64')}`;
 
-    const jpeg = await convert(qrSvg, {puppeteer: {
-      args: chromium.args,
-      ignoreDefaultArgs: ['--disable-extensions'],
-      defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath(),
-      headless: chromium.headless,
-    }});
+    const jpeg = await convert(qrSvg, {
+      puppeteer: {
+        executablePath: process.env.CONTEXT === 'dev' ? localChromePath : await chromium.executablePath(),
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        headless: chromium.headless,
+      }
+    });
     console.log(jpeg);
-    
+
 
 
     return new Response(JSON.stringify({ qrCodeUrl, name }), {
