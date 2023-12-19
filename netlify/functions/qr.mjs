@@ -8,6 +8,8 @@ import chromium from '@sparticuz/chromium-min';
 const handler = async (req) => {
 
 
+
+  const localBin = 'C:\Program Files\Google\Chrome\Application\chrome.exe';
   let data;
   const { convert } = pkg;
 
@@ -38,8 +40,9 @@ END:VCARD`;
 
     const jpeg = await convert(qrSvg, {puppeteer: {
       args: chromium.args,
+      ignoreDefaultArgs: ['--disable-extensions'],
       defaultViewport: chromium.defaultViewport,
-      executablePath: await chromium.executablePath("/opt/chromium"),
+      executablePath: await chromium.executablePath(),
       headless: chromium.headless,
     }});
     console.log(jpeg);
