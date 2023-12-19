@@ -13,8 +13,6 @@ const handler = async (req) => {
   const localChromePath = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
   const { convert } = pkg;
 
-  console.log(process.env);
-
   try {
     data = await req.json()
   }
@@ -40,7 +38,7 @@ END:VCARD`;
     const buff = Buffer.from(qrSvg);
     const qrCodeUrl = `data:image/svg+xml;base64,${buff.toString('base64')}`;
 
-    const jpeg = await convert(qrSvg, {
+    const jbegBuffer = await convert(qrSvg, {
       puppeteer: {
         executablePath: process.env.CONTEXT === 'dev' ? localChromePath : await chromium.executablePath(),
         args: chromium.args,
@@ -48,11 +46,12 @@ END:VCARD`;
         headless: chromium.headless,
       }
     });
-    console.log(jpeg);
+
+    
+    const jpegBase64 = jbegBuffer.toString('base64');
 
 
-
-    return new Response(JSON.stringify({ qrCodeUrl, name }), {
+    return new Response(JSON.stringify({ qrCodeUrl, name, jpegBase64 }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' }
     });
